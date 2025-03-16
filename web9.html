@@ -50,8 +50,8 @@
         }
 
         th, td {
-            padding: 10px;
-            text-align: center;
+            padding: 10px; 
+            text-align: center; 
         }
 
         th {
@@ -72,24 +72,44 @@
         background-color: #666;
     }
     .video-container {
-    z-index: 100;
-    margin-top: 250px;
-    width: 80%;
-    max-width: 800px;
-    text-align: center;
+        z-index: 50;
+            margin-top: 250px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
     }
+    .video-container.active {
+            z-index: 100;
+            opacity: 1;
+        }
     iframe {
     width: 100%;
     height: 450px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-        
+    }
     </style>
      <script>
       function playEpisode(url) {
-          document.getElementById("anime-player").src = url;
+            let player = document.getElementById("anime-player");
+            let container = document.querySelector(".video-container");
+            player.src = url;
+            container.classList.add("active");
       }
+      document.addEventListener("click", function(event) {
+          let videoContainer = document.querySelector(".video-container");
+          let videoPlayer = document.querySelector("iframe");
+          let episodeButtons = document.querySelectorAll('.episode-button');
+          
+          // Если клик был за пределами видео и плеера и не на кнопке эпизода
+          let isEpisodeButtonClicked = Array.from(episodeButtons).some(button => button.contains(event.target));
+
+          if (!videoContainer.contains(event.target) && event.target !== videoPlayer && !isEpisodeButtonClicked) {
+              videoContainer.classList.remove("active"); // Скрыть плеер
+          }
+      });
   </script>
   </head>
   <body>
@@ -99,12 +119,24 @@
       <th style="color: beige;" colspan="3">Episodes</th>
     </tr>
     <tr>
-        <td style="color: beige;" colspan="3">1 Season</td>
-    </tr>
-    <tr>
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/218877/32aa513033b7dc9790156847598a60f1/720p')">Episode 1</td>
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/218878/15a3827fc8ffd08757e6432b54faad31/720p')">Episode 2</td>
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/218879/b38264a56a2de4c190ad56447fd62c8a/720p')">Episode 3</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557293/af5e2512e9f61e58afcc74e4b097454c/720p')">Episode 4</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557294/5ddcf8e4ec57d18a3bc86b744504aeab/720p')">Episode 5</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557295/9517a932920c327588a50c0afe0f2452/720p')">Episode 6</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557296/cb34ceb6fe0287cb8bb94eb427b75c80/720p')">Episode 7</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557297/e546b8a9b84f9342adc1e842fb0ed81f/720p')">Episode 8</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557298/0a091984f27af8108d19684fcd61643f/720p')">Episode 9</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557299/a3950b13c1ff6e9f14a93ea46654e5c5/720p')">Episode 10</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557300/39bde9272f96d479969a4cea5c5621f9/720p')">Episode 11</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/557301/9cf97e0c430743f3ac02192757850a36/720p')">Episode 12</td>
     </tr>
    </table>
   </div>
