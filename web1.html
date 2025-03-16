@@ -36,7 +36,7 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: #2a2a2a;
-            padding: 20px; 
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             max-width: 600px;
@@ -72,24 +72,44 @@
         background-color: #666;
     }
     .video-container {
-    z-index: 100;
-    margin-top: 250px;
-    width: 80%;
-    max-width: 800px;
-    text-align: center;
+        z-index: 50;
+            margin-top: 250px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
     }
+    .video-container.active {
+            z-index: 100;
+            opacity: 1;
+        }
     iframe {
     width: 100%;
     height: 450px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-        
+    }
     </style>
      <script>
       function playEpisode(url) {
-          document.getElementById("anime-player").src = url;
+            let player = document.getElementById("anime-player");
+            let container = document.querySelector(".video-container");
+            player.src = url;
+            container.classList.add("active");
       }
+      document.addEventListener("click", function(event) {
+          let videoContainer = document.querySelector(".video-container");
+          let videoPlayer = document.querySelector("iframe");
+          let episodeButtons = document.querySelectorAll('.episode-button');
+          
+          // Если клик был за пределами видео и плеера и не на кнопке эпизода
+          let isEpisodeButtonClicked = Array.from(episodeButtons).some(button => button.contains(event.target));
+
+          if (!videoContainer.contains(event.target) && event.target !== videoPlayer && !isEpisodeButtonClicked) {
+              videoContainer.classList.remove("active"); // Скрыть плеер
+          }
+      });
   </script>
   </head>
   <body>
