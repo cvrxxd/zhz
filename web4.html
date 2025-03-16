@@ -72,24 +72,44 @@
         background-color: #666;
     }
     .video-container {
-    z-index: 100;
-    margin-top: 250px;
-    width: 80%;
-    max-width: 800px;
-    text-align: center;
+        z-index: 50;
+            margin-top: 250px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
     }
+    .video-container.active {
+            z-index: 100;
+            opacity: 1;
+        }
     iframe {
     width: 100%;
     height: 450px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-        
+    }
     </style>
      <script>
       function playEpisode(url) {
-          document.getElementById("anime-player").src = url;
+            let player = document.getElementById("anime-player");
+            let container = document.querySelector(".video-container");
+            player.src = url;
+            container.classList.add("active");
       }
+      document.addEventListener("click", function(event) {
+          let videoContainer = document.querySelector(".video-container");
+          let videoPlayer = document.querySelector("iframe");
+          let episodeButtons = document.querySelectorAll('.episode-button');
+          
+          // Если клик был за пределами видео и плеера и не на кнопке эпизода
+          let isEpisodeButtonClicked = Array.from(episodeButtons).some(button => button.contains(event.target));
+
+          if (!videoContainer.contains(event.target) && event.target !== videoPlayer && !isEpisodeButtonClicked) {
+              videoContainer.classList.remove("active"); // Скрыть плеер
+          }
+      });
   </script>
   </head>
   <body>
@@ -105,6 +125,21 @@
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/595021/e75505bc0445f2b51dfd80c3aa2b052a/720p')">Episode 1</td>
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/595022/0d9928aef83f6bfd2218438ba2f3f96c/720p')">Episode 2</td>
         <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/595023/2b747209e24d96382ee8097b931153c0/720p')">Episode 3</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208238/b3c72cc98afc1a9bdfe39886fc2bc490/720p')">Episode 4</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208239/99909dc5fd7b9fa40d7cf12b5c7eb05b/720p')">Episode 5</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208240/01de0d7e3ae1cf031de89ac76959c88a/720p')">Episode 6</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208241/e42633c9d813a8c53038ae0896625115/720p')">Episode 7</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208242/3b116a89685035bb3c19abc5dd792d75/720p')">Episode 8</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208243/136f45e3f4e49f2376ef5f7ba0f05ce6/720p')">Episode 9</td>
+    </tr>
+    <tr>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208244/f178c32ac5cac3dda74ffc8545d07986/720p')">Episode 10</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208245/78f3fbe51a9f6b04dd79e91e08b3b661/720p')">Episode 11</td>
+        <td style="color: aliceblue;" button class="episode-button" onclick="playEpisode('https://kodik.info/seria/208246/262490457859430b15d544b4a78102c1/720p')">Episode 12</td>
     </tr>
    </table>
   </div>
